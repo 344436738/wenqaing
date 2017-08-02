@@ -1,0 +1,163 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-lazy-init="false">
+
+ <context:property-placeholder location="classpath:resource/*.properties" />	
+
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher"
+		class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.RetryLimitHashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="2" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+		<property name="redisManager" ref="redisManager"></property>
+	</bean>
+	<!-- Realm实现 -->
+	<bean id="userRealm" class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.interceptor.shiro.ShiroRealm">
+	   	<property name="credentialsMatcher" ref="credentialsMatcher" />
+		<property name="cachingEnabled" value="true" />
+	</bean>
+
+	<!-- 会话ID生成器 -->
+	<bean id="sessionIdGenerator"
+		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
+
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="sid" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="-1" />
+	</bean>
+
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位） -->
+		<property name="cipherKey"
+			value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+
+	<!-- 会话DAO -->
+	<bean id="sessionDAO"
+		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+	</bean>
+
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler"
+		class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+		<property name="sessionValidationInterval" value="1800000" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+
+	<!-- 会话管理器 -->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="1800000" />
+		<property name="deleteInvalidSessions" value="true" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionDAO" ref="customShiroSessionDAO" />
+		<property name="sessionIdCookieEnabled" value="true" />
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+	</bean>
+
+    <!--自定义的shiro session 管理器  -->
+	<bean id="customShiroSessionDAO" class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.CustomShiroSessionDao">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />
+	</bean>
+	<!-- 实现的redis的session管理方法 -->
+	<bean id="jedisShiroSessionRepository"
+		class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.JedisShiroSessionRepository">
+		<property name="redisManager" ref="redisManager"></property>
+	</bean>
+	<!-- redis 的通信工具 -->
+	<bean id="redisManager" class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.RedisManager">
+		<property name="port" value="${redis.port}"></property>
+		<property name="host" value="${redis.host}"></property>
+	</bean>
+
+    <!-- 实现的redis的缓存管理方法 -->
+	<bean id="jedisShiroCacheManager" class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.JedisShiroCacheManager">
+		<property name="redisManager" ref="redisManager"></property>
+	</bean>
+
+    <!-- 自定义的shiro缓存管理方法 -->
+	<bean id="customShiroCacheManager" class="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.security.CustomShiroCacheManager">
+		<property name="shrioCacheManager" ref="jedisShiroCacheManager"></property>
+	</bean>
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="cacheManager" ref="customShiroCacheManager" />
+		<property name="rememberMeManager" ref="rememberMeManager" />
+	</bean>
+
+	<!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+
+
+
+
+	<!-- Shiro的Web过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	<property name="securityManager" ref="securityManager" />
+			
+			<property name="loginUrl" value="/" />
+			
+			<property name="successUrl" value="/main/index" />
+			
+			<property name="unauthorizedUrl" value="/login_toLogin" />
+			<property name="filterChainDefinitions">
+				<value>
+					/action/weixinInit/**  = anon
+					/static/login/** 			= anon
+					/static/js/myjs/** 			= authc
+					/static/js/** 				= anon
+					/static/bootstrap/** 				= anon
+					
+					/uploadFiles/uploadImgs/** 	= anon
+		           	/action/code.do 					= anon
+		           	/action/login_login	 			= anon
+		           	/**							= authc
+		           	
+					</value>
+			</property>
+	</bean>
+
+	<!-- Shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+</beans>

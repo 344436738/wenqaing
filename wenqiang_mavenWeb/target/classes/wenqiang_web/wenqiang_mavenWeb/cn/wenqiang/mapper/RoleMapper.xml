@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Role" >
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="RIGHTS" property="rights" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="ADD_QX" property="addQx" jdbcType="VARCHAR" />
+    <result column="DEL_QX" property="delQx" jdbcType="VARCHAR" />
+    <result column="EDIT_QX" property="editQx" jdbcType="VARCHAR" />
+    <result column="CHA_QX" property="chaQx" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, RIGHTS, PARENT_ID, ADD_QX, DEL_QX, EDIT_QX, CHA_QX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from role
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Role" >
+    insert into role (ROLE_ID, ROLE_NAME, RIGHTS, 
+      PARENT_ID, ADD_QX, DEL_QX, 
+      EDIT_QX, CHA_QX)
+    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{rights,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=VARCHAR}, #{addQx,jdbcType=VARCHAR}, #{delQx,jdbcType=VARCHAR}, 
+      #{editQx,jdbcType=VARCHAR}, #{chaQx,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="rights != null" >
+        RIGHTS,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="addQx != null" >
+        ADD_QX,
+      </if>
+      <if test="delQx != null" >
+        DEL_QX,
+      </if>
+      <if test="editQx != null" >
+        EDIT_QX,
+      </if>
+      <if test="chaQx != null" >
+        CHA_QX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="rights != null" >
+        #{rights,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="addQx != null" >
+        #{addQx,jdbcType=VARCHAR},
+      </if>
+      <if test="delQx != null" >
+        #{delQx,jdbcType=VARCHAR},
+      </if>
+      <if test="editQx != null" >
+        #{editQx,jdbcType=VARCHAR},
+      </if>
+      <if test="chaQx != null" >
+        #{chaQx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Role" >
+    update role
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="rights != null" >
+        RIGHTS = #{rights,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="addQx != null" >
+        ADD_QX = #{addQx,jdbcType=VARCHAR},
+      </if>
+      <if test="delQx != null" >
+        DEL_QX = #{delQx,jdbcType=VARCHAR},
+      </if>
+      <if test="editQx != null" >
+        EDIT_QX = #{editQx,jdbcType=VARCHAR},
+      </if>
+      <if test="chaQx != null" >
+        CHA_QX = #{chaQx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Role" >
+    update role
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      RIGHTS = #{rights,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      ADD_QX = #{addQx,jdbcType=VARCHAR},
+      DEL_QX = #{delQx,jdbcType=VARCHAR},
+      EDIT_QX = #{editQx,jdbcType=VARCHAR},
+      CHA_QX = #{chaQx,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

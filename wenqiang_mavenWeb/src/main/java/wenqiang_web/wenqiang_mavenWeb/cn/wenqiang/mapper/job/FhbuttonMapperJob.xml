@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.FhbuttonMapper" >
+  <resultMap id="BaseResultMap1" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    <id column="FHBUTTON_ID" property="fhbuttonId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="QX_NAME" property="qxName" jdbcType="VARCHAR" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    FHBUTTON_ID, NAME, QX_NAME, BZ
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List1" />
+    from fhbutton
+    where ${str}
+  </select>
+  
+  <select id="listAllBrAndQxname" resultType="java.lang.String" parameterType="java.lang.String" >
+   select
+		
+		QX_NAME	
+		from 
+	 SYS_ROLE_FHBUTTON  a
+		left join
+		 SYS_FHBUTTON b
+		on
+			a.BUTTON_ID = b.FHBUTTON_ID
+		where
+			a.ROLE_ID =${str}
+  </select>
+  
+  
+</mapper>

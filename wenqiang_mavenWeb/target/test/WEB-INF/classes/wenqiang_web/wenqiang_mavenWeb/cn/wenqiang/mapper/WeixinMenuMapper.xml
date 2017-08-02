@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.WeixinMenuMapper" >
+  <resultMap id="BaseResultMap" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="menukey" property="menukey" jdbcType="VARCHAR" />
+    <result column="msgtype" property="msgtype" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sorting" property="sorting" jdbcType="INTEGER" />
+    <result column="templateid" property="templateid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="fatherid" property="fatherid" jdbcType="INTEGER" />
+    <result column="accountid" property="accountid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, menukey, msgtype, name, sorting, templateid, type, url, fatherid, accountid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weixin_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weixin_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinMenu" >
+    insert into weixin_menu (id, menukey, msgtype, 
+      name, sorting, templateid, 
+      type, url, fatherid, 
+      accountid)
+    values (#{id,jdbcType=INTEGER}, #{menukey,jdbcType=VARCHAR}, #{msgtype,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sorting,jdbcType=INTEGER}, #{templateid,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{fatherid,jdbcType=INTEGER}, 
+      #{accountid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinMenu" >
+    insert into weixin_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="menukey != null" >
+        menukey,
+      </if>
+      <if test="msgtype != null" >
+        msgtype,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sorting != null" >
+        sorting,
+      </if>
+      <if test="templateid != null" >
+        templateid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="fatherid != null" >
+        fatherid,
+      </if>
+      <if test="accountid != null" >
+        accountid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menukey != null" >
+        #{menukey,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null" >
+        #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null" >
+        #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherid != null" >
+        #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinMenu" >
+    update weixin_menu
+    <set >
+      <if test="menukey != null" >
+        menukey = #{menukey,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtype != null" >
+        msgtype = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null" >
+        sorting = #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="templateid != null" >
+        templateid = #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherid != null" >
+        fatherid = #{fatherid,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        accountid = #{accountid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinMenu" >
+    update weixin_menu
+    set menukey = #{menukey,jdbcType=VARCHAR},
+      msgtype = #{msgtype,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sorting = #{sorting,jdbcType=INTEGER},
+      templateid = #{templateid,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      fatherid = #{fatherid,jdbcType=INTEGER},
+      accountid = #{accountid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

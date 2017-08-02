@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >  
+<generatorConfiguration >  
+  <!--    -->  
+  <classPathEntry location="D:\项目\demo\wenqiang_mavenWeb\src\main\webapp\WEB-INF\lib\mysql-connector-java-5.1.18.jar"/>  
+  
+  <context id="context1" >  
+	  <commentGenerator>
+	    <!--  关闭自动生成的注释  -->
+	    <property name="suppressAllComments" value="true" />
+	</commentGenerator>
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/utilmysql" userId="root" password="123456" />  
+    <javaModelGenerator targetPackage="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty" targetProject="wenqiang_mavenWeb\src\main\java" />  
+    <sqlMapGenerator targetPackage="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.mapper" targetProject="wenqiang_mavenWeb\src\main\java" />  
+    <javaClientGenerator targetPackage="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao" targetProject="wenqiang_mavenWeb\src\main\java" type="XMLMAPPER" />  
+ 
+    <table schema="root" tableName="weixin_account" domainObjectName="WeixinAccount"  
+    enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"  
+    enableSelectByExample="false" selectByExampleQueryId="false" >  
+    </table> 
+  
+    
+    
+     <table schema="root" tableName="weixin_menu" domainObjectName="WeixinMenu"  
+    enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"  
+    enableSelectByExample="false" selectByExampleQueryId="false" >  
+    </table>
+    
+  
+     <table schema="root" tableName="weixin_newsitem" domainObjectName="weixinNewsitem"  
+    enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"  
+    enableSelectByExample="false" selectByExampleQueryId="false" >  
+    </table>
+   
+
+     
+  </context>  
+  
+  
+</generatorConfiguration>  

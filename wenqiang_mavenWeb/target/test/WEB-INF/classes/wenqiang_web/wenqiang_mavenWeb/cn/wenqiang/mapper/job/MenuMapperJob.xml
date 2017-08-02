@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.MenuMapper" >
+  <resultMap id="BaseResultMap1" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Menu" >
+    <id column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="MENU_ORDER" property="menuOrder" jdbcType="VARCHAR" />
+    <result column="MENU_ICON" property="menuIcon" jdbcType="VARCHAR" />
+    <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
+    <result column="MENU_STATE" property="menuState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    MENU_ID, MENU_NAME, MENU_URL, PARENT_ID, MENU_ORDER, MENU_ICON, MENU_TYPE, MENU_STATE
+  </sql>
+  <select id="listAllMenuQx" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List1" />
+    from menu
+	where PARENT_ID = #{parentId} 
+  </select>
+  
+  
+</mapper>

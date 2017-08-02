@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.FhbuttonMapper" >
+  <resultMap id="BaseResultMap" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    <id column="FHBUTTON_ID" property="fhbuttonId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="QX_NAME" property="qxName" jdbcType="VARCHAR" />
+    <result column="BZ" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FHBUTTON_ID, NAME, QX_NAME, BZ
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fhbutton
+    where FHBUTTON_ID = #{fhbuttonId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fhbutton
+    where FHBUTTON_ID = #{fhbuttonId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    insert into fhbutton (FHBUTTON_ID, NAME, QX_NAME, 
+      BZ)
+    values (#{fhbuttonId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{qxName,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    insert into fhbutton
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fhbuttonId != null" >
+        FHBUTTON_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="qxName != null" >
+        QX_NAME,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fhbuttonId != null" >
+        #{fhbuttonId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="qxName != null" >
+        #{qxName,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    update fhbutton
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="qxName != null" >
+        QX_NAME = #{qxName,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FHBUTTON_ID = #{fhbuttonId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.Fhbutton" >
+    update fhbutton
+    set NAME = #{name,jdbcType=VARCHAR},
+      QX_NAME = #{qxName,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR}
+    where FHBUTTON_ID = #{fhbuttonId,jdbcType=VARCHAR}
+  </update>
+</mapper>

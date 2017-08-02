@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.WeixinNewsitemMapper" >
+  <resultMap id="BaseResultMap" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="new_type" property="newType" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="imagepath" property="imagepath" jdbcType="VARCHAR" />
+    <result column="sorting" property="sorting" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="templateid" property="templateid" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="accountid" property="accountid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, new_type, author, description, imagepath, sorting, title, templateid, url, create_date, 
+    accountid
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from weixin_newsitem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weixin_newsitem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    insert into weixin_newsitem (id, new_type, author, 
+      description, imagepath, sorting, 
+      title, templateid, url, 
+      create_date, accountid, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{newType,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{imagepath,jdbcType=VARCHAR}, #{sorting,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{templateid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=DATE}, #{accountid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    insert into weixin_newsitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="newType != null" >
+        new_type,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="imagepath != null" >
+        imagepath,
+      </if>
+      <if test="sorting != null" >
+        sorting,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="templateid != null" >
+        templateid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="accountid != null" >
+        accountid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="newType != null" >
+        #{newType,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null" >
+        #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="templateid != null" >
+        #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    update weixin_newsitem
+    <set >
+      <if test="newType != null" >
+        new_type = #{newType,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        imagepath = #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="sorting != null" >
+        sorting = #{sorting,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="templateid != null" >
+        templateid = #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="accountid != null" >
+        accountid = #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    update weixin_newsitem
+    set new_type = #{newType,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      imagepath = #{imagepath,jdbcType=VARCHAR},
+      sorting = #{sorting,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      templateid = #{templateid,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=DATE},
+      accountid = #{accountid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinNewsitem" >
+    update weixin_newsitem
+    set new_type = #{newType,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      imagepath = #{imagepath,jdbcType=VARCHAR},
+      sorting = #{sorting,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      templateid = #{templateid,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=DATE},
+      accountid = #{accountid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

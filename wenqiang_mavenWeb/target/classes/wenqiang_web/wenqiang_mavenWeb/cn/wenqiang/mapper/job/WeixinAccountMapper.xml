@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.WeixinAccountMapper" >
+  <resultMap id="BaseResultMap1" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.WeixinAccount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="accountname" property="accountname" jdbcType="VARCHAR" />
+    <result column="accounttoken" property="accounttoken" jdbcType="VARCHAR" />
+    <result column="accountnumber" property="accountnumber" jdbcType="VARCHAR" />
+    <result column="accounttype" property="accounttype" jdbcType="VARCHAR" />
+    <result column="accountemail" property="accountemail" jdbcType="VARCHAR" />
+    <result column="accountdesc" property="accountdesc" jdbcType="VARCHAR" />
+    <result column="accountaccesstoken" property="accountaccesstoken" jdbcType="VARCHAR" />
+    <result column="accountappid" property="accountappid" jdbcType="VARCHAR" />
+    <result column="accountappsecret" property="accountappsecret" jdbcType="VARCHAR" />
+    <result column="ADDTOEKNTIME" property="addtoekntime" jdbcType="TIMESTAMP" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="WEIXIN_ACCOUNTID" property="weixinAccountid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    id, accountname, accounttoken, accountnumber, accounttype, accountemail, accountdesc, 
+    accountaccesstoken, accountappid, accountappsecret, ADDTOEKNTIME, USERNAME, WEIXIN_ACCOUNTID, 
+    userid
+  </sql>
+  <select id="getListWeixinAccount" resultMap="BaseResultMap1" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List1" />
+    from weixin_account     where 1=1
+     
+      <if test="accountname != null" >
+        accountname  LIKE CONCAT(CONCAT('%', #{accountname}), '%')
+      </if>
+    
+      <if test="accounttype != null" >
+        accounttype =#{accounttype}
+      </if>
+     
+      <if test="username != null" >
+        USERNAME  LIKE CONCAT(CONCAT('%', #{username}), '%')
+      </if>
+  </select>
+ 
+
+  
+    
+</mapper>

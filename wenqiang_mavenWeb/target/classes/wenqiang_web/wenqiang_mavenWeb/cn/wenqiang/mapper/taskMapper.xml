@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.dao.taskMapper" >
+  <resultMap id="BaseResultMap" type="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.task" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="triggername" property="triggername" jdbcType="VARCHAR" />
+    <result column="cronexpression" property="cronexpression" jdbcType="VARCHAR" />
+    <result column="jobdetailname" property="jobdetailname" jdbcType="VARCHAR" />
+    <result column="targetobject" property="targetobject" jdbcType="VARCHAR" />
+    <result column="methodname" property="methodname" jdbcType="VARCHAR" />
+    <result column="concurrent" property="concurrent" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="readme" property="readme" jdbcType="VARCHAR" />
+    <result column="isspringbean" property="isspringbean" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.task" >
+    insert into task (id, triggername, cronexpression, 
+      jobdetailname, targetobject, methodname, 
+      concurrent, state, readme, 
+      isspringbean)
+    values (#{id,jdbcType=INTEGER}, #{triggername}, #{cronexpression}, 
+      #{jobdetailname}, #{targetobject}, #{methodname}, 
+      #{concurrent}, #{state}, #{readme}, 
+      #{isspringbean})
+  </insert>
+  <insert id="insertSelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="triggername != null" >
+        triggername,
+      </if>
+      <if test="cronexpression != null" >
+        cronexpression,
+      </if>
+      <if test="jobdetailname != null" >
+        jobdetailname,
+      </if>
+      <if test="targetobject != null" >
+        targetobject,
+      </if>
+      <if test="methodname != null" >
+        methodname,
+      </if>
+      <if test="concurrent != null" >
+        concurrent,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="readme != null" >
+        readme,
+      </if>
+      <if test="isspringbean != null" >
+        isspringbean,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="triggername != null" >
+        #{triggername},
+      </if>
+      <if test="cronexpression != null" >
+        #{cronexpression},
+      </if>
+      <if test="jobdetailname != null" >
+        #{jobdetailname},
+      </if>
+      <if test="targetobject != null" >
+        #{targetobject},
+      </if>
+      <if test="methodname != null" >
+        #{methodname},
+      </if>
+      <if test="concurrent != null" >
+        #{concurrent},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="readme != null" >
+        #{readme},
+      </if>
+      <if test="isspringbean != null" >
+        #{isspringbean},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 查询所有 -->
+  
+   <select id="listAllMenuQxByPage" resultMap="BaseResultMap" >
+    select 
+      id, triggername, cronexpression, 
+      jobdetailname, targetobject, methodname, 
+      concurrent, state, readme, 
+      isspringbean
+    from task
+	
+  </select>  
+    
+  
+  <!-- delete -->
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where id = #{id}
+  </delete>
+  
+  
+  <!-- update -->
+  <update id="updateByPrimaryKeySelective" parameterType="wenqiang_web.wenqiang_mavenWeb.cn.wenqiang.emty.task" >
+    update task
+    <set >
+      <if test="triggername != null" >
+        #{triggername},
+      </if>
+      <if test="cronexpression != null" >
+        #{cronexpression},
+      </if>
+      <if test="jobdetailname != null" >
+        #{jobdetailname},
+      </if>
+      <if test="targetobject != null" >
+        #{targetobject},
+      </if>
+      <if test="methodname != null" >
+        #{methodname},
+      </if>
+      <if test="concurrent != null" >
+        #{concurrent},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="readme != null" >
+        #{readme},
+      </if>
+      <if test="isspringbean != null" >
+        #{isspringbean},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  
+</mapper>
